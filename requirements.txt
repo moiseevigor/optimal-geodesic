@@ -1,0 +1,7 @@
+matplotlib
+numpy
+pyyaml
+scipy
+ipython
+vispy
+mplcursors
