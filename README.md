@@ -22,5 +22,5 @@ xhost +
 run docker with GUI
 
 ```
-docker run --rm -it -e DISPLAY=host.docker.internal:0 -v $PWD:/app pytorch-cpu python /app/src/opt_geod.py
+docker run --rm -it -e DISPLAY=host.docker.internal:0 -v $PWD:/app pytorch-cpu python /app/src/r2s1/opt_geod.py
 ```
