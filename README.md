@@ -1,6 +1,12 @@
 # Optimal Geodesic
 Search for Optimal Geodesic on Manifolds such as R^2 \times S^1, R^3 \times S^2.
 
+## Theory
+
+## R^2 \times S^1
+
+## R^3 \times S^2.
+
 ## Installation 
 
 ## Build & Run
