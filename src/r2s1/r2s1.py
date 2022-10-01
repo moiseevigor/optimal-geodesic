@@ -15,14 +15,9 @@ from torchdiffeq import odeint
 # "explicit_adams", "fixed_adams", "adams", "tsit5", "dopri5", "bosh3", "euler", "midpoint", "rk4", "adaptive_heun", "dopri8"
 backend = 'euler'
 
-# num of steps
-N_steps = 501
-momentum = 0.0
-alpha = 0.001
-
 def odesyst(t, inp):
     """
-    Hamiltonian system that proves extremal trajectories for R^2 x S^1
+    Hamiltonian system that plots geodesic trajectories for R^2 x S^1
     \dot h_1 = -h_2*h_3 -> 0
     \dot h_2 =  h_1*h_3 -> 1
     \dot h_3 =  h_2*h_3 -> 2
@@ -30,6 +25,8 @@ def odesyst(t, inp):
     \dot x = h_1 cos(th) -> 3
     \dot y = h_1 sin(th) -> 4
     \dot th = h_2        -> 5
+
+    H = h_1^2 + h_2^2 = C/2 => gives geodesic parametrization
     """
     out = ([
         -inp[:,1]*inp[:,2],
@@ -43,29 +40,25 @@ def odesyst(t, inp):
     return torch.reshape(torch.cat(out), (6,len(inp))).transpose(1,0)
 
 
-# r = 5
-# num_points = 20
-# X = np.linspace(-r, r, int(num_points)+1)
-# Y = np.linspace(-r, r, int(num_points)+1)
+r = 3
+num_points = 100
+alpha = np.linspace(-2*r, 2*r, int(num_points)+1)
+h_10 = 2*np.sin(alpha)
+h_20 = 2*np.cos(alpha)
+h_30 = 1
 
+initial_state =  torch.tensor([
+    h_10, 
+    h_20, 
+    torch.ones(len(h_10))*h_30, 
+    torch.zeros(len(h_10)),
+    torch.zeros(len(h_10)),
+    torch.zeros(len(h_10)),
+]).transpose(1,0)
+
+# num of steps
+N_steps = 501
 t = np.linspace(0, 5, N_steps)
-# initial_state = [1.0,1.0,1.0,0.1,1.0,1.0]
-# initial_state = [[1.0,2.0],[1.0,2.0],[1.0,2.0],[1.0,2.0],[1.0,2.0],[1.0,2.0],]
-initial_state = [
-    [1.0,1.0,1.0,0.1,1.0,1.0], # point 0
-    [2.0,2.0,2.0,0.2,2.0,2.0], # point 1
-    [3.0,3.0,3.0,0.3,3.0,3.0], # point 2
-    [0.1,0.2,0.3,0.3,0.1,0.1], # point 2
-]
-
-# for x in X:
-#     for y in Y:
-#         if np.abs(x)>4.9 or np.abs(y)>4.9:
-#             print([x,y])
-#             initial_state.append([x,y])
-
-initial_state = torch.Tensor(initial_state) #.requires_grad_(True)
-
 sol = odeint(
     odesyst, 
     initial_state,
@@ -74,9 +67,14 @@ sol = odeint(
     atol=1e-9,
     method=backend
 )
-# import pdb; pdb.set_trace()
-# sol = sol.detach().numpy()
+import pdb; pdb.set_trace()
+
+fig = plt.figure()
+ax = plt.axes(projection='3d')
+# plt.gca().set_aspect('equal', adjustable='box')
 
 for it in range(0,4):
-    plt.plot(sol[:,it, 3], sol[:,it, 4])
+    # plt.plot(sol[:,it, 3], sol[:,it, 4])
+    ax.plot3D(sol[:,it, 3], sol[:,it, 4], sol[:,it, 5])
+
 plt.show()
