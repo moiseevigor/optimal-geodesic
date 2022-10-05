@@ -74,8 +74,7 @@ fig = plt.figure()
 ax = plt.axes(projection='3d')
 # ax = plt.axes(projection='rectilinear')
 
-# ax.plot_surface(sol[:,:, 3], sol[:,:, 4], sol[:,:, 5])
-ax.plot_trisurf(sol[:,:, 3], sol[:,:, 4], sol[:,:, 5])
+ax.plot_surface(sol[:,:, 3], sol[:,:, 4], sol[:,:, 5])
 # for it in range(0,len(sol[0,:, 3])):
     # plt.plot(sol[:,it, 3], sol[:,it, 4])
     # ax.plot3D(sol[:,it, 3], sol[:,it, 4], sol[:,it, 5])
