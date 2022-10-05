@@ -41,24 +41,24 @@ def odesyst(t, inp):
 
 
 r = 3
-num_points = 100
+num_points = 500
 alpha = np.linspace(-2*r, 2*r, int(num_points)+1)
 h_10 = 2*np.sin(alpha)
 h_20 = 2*np.cos(alpha)
 h_30 = 1
 
 initial_state =  torch.tensor([
-    h_10, 
-    h_20, 
-    torch.ones(len(h_10))*h_30, 
-    torch.zeros(len(h_10)),
-    torch.zeros(len(h_10)),
-    torch.zeros(len(h_10)),
+    h_10,                       # h1
+    h_20,                       # h2
+    torch.ones(len(h_10))*h_30, # h3
+    torch.zeros(len(h_10)),     # x
+    torch.zeros(len(h_10)),     # y 
+    torch.zeros(len(h_10)),     # th
 ]).transpose(1,0)
 
 # num of steps
 N_steps = 501
-t = np.linspace(0, 5, N_steps)
+t = np.linspace(0, 2, N_steps)
 sol = odeint(
     odesyst, 
     initial_state,
@@ -67,14 +67,16 @@ sol = odeint(
     atol=1e-9,
     method=backend
 )
-import pdb; pdb.set_trace()
+# import pdb; pdb.set_trace()
 
 fig = plt.figure()
-ax = plt.axes(projection='3d')
 # plt.gca().set_aspect('equal', adjustable='box')
+ax = plt.axes(projection='3d')
+# ax = plt.axes(projection='rectilinear')
 
-for it in range(0,4):
+ax.plot_surface(sol[:,:, 3], sol[:,:, 4], sol[:,:, 5])
+# for it in range(0,len(sol[0,:, 3])):
     # plt.plot(sol[:,it, 3], sol[:,it, 4])
-    ax.plot3D(sol[:,it, 3], sol[:,it, 4], sol[:,it, 5])
+    # ax.plot3D(sol[:,it, 3], sol[:,it, 4], sol[:,it, 5])
 
 plt.show()
