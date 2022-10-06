@@ -3,15 +3,48 @@ Search for Optimal Geodesic on Manifolds such as R^2 \times S^1, R^3 \times S^2.
 
 ## Theory
 
-## R^2 \times S^1
+### Circle 
 
-## R^3 \times S^2.
+Implicit surface formula in (x,y,z) \in R^3
 
-## Installation 
+```
+x^2 + y^2 + z^2 = 1
+```
 
-## Build & Run
+Geodeics parametrized by time
 
-Build
+```
+\dot x = cos(th)*sin(th)
+\dot y = sin(th)
+\dot z = ??
+```
+
+### Ellipse
+Implicit surface formula in (x,y,z) \in R^3
+
+```
+x^2/a + y^2/b + z^2 = 1
+```
+
+Geodeics parametrized by time
+
+```
+\dot x = a*cos(th)*sin(th)
+\dot y = b*sin(th)
+\dot z = ??
+```
+
+### Torus
+
+## Heisenberg group, H(2)??
+
+### E(2) = R^2 \times S^1
+
+### E(??) = R^3 \times S^2
+
+### E(8) - standard model group
+
+### Build & Run
 
 ```
 docker build -t pytorch -f Dockerfile .
@@ -36,3 +69,4 @@ on Mac OS
 ```
 docker run --rm -it -e DISPLAY=host.docker.internal:0 -v $PWD:/app pytorch python /app/src/r2s1/r2s1.py
 ```
+
