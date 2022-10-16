@@ -3,6 +3,8 @@ Search for Optimal Geodesic on Manifolds such as R^2 \times S^1, R^3 \times S^2.
 
 ## Theory
 
+Geometry library https://github.com/geomstats/geomstats/tree/master/geomstats/geometry
+
 ### Circle 
 
 Implicit surface formula in (x,y,z) \in R^3
