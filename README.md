@@ -42,7 +42,9 @@ Geodeics parametrized by time
 
 ### E(2) = R^2 \times S^1
 
-### E(??) = R^3 \times S^2
+### E(3) = R^3 \times S^2
+
+SE(3) https://geomstats.github.io/notebooks/04_practical_methods__from_vector_spaces_to_manifolds.html#Geodesics-on-the-special-euclidean-group-SE(3)
 
 ### E(8) - standard model group
 
